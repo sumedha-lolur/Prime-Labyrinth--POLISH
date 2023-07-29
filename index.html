@@ -11,21 +11,22 @@
 <script src="trial_script.js" defer></script>
 <body>
     <div class="main-container">
-        &nbsp;
+    
         <h1 id="heading">Prime Labyrinth</h1>          
         
-        
-        <div class="container" id="container">
-            <div class="start-button" id="start-button"> Start game! </div>
-            <div class="maze-container" id="maze-container"></div>
-         </div>
+        <div class="start-button" id="start-button"> Start game! </div>
 
-<!--          <div class="rat-container" id="rat-container">
-            <img src="https://static.vecteezy.com/system/resources/previews/018/769/166/original/mouse-rat-icon-flat-icon-illustration-isolated-on-white-background-for-the-theme-of-animals-rodents-and-others-free-vector.jpg" alt="Rat">
-          </div>
-          <div class="cheese-container" id="cheese-container">
-            <img src="https://i.pinimg.com/474x/37/39/18/373918695cad4c33b42ff56053ada719.jpg" alt="Cheese">
-          </div> -->
+        <div class="container" id="container">
+            
+            <div class="maze-container" id="maze-container">
+              <div class="rat-container" id="rat-container">
+                <img src="rat_icon.png" alt="Rat">
+              </div>
+              <div class="cheese-container" id="cheese-container">
+                <img src="cheese_icon.png" alt="Cheese">
+              </div>
+            </div>
+         </div>
 
          <div class="timer-container">
             <div class="timer" id="timer">00:00</div>
@@ -35,10 +36,15 @@
          <div class="congratulations" id="congratulations">
             <h1 class="message">Congratulations!</h1>
             <hr>
-            <div class="message">
-                Level Completed! <br>100 points earnt
+            <div class="message" id="points">
+                
             </div>
          </div>
+
+         <div class="buttons" id="pass-buttons">
+          <div class="button" id="next-button"><img src="nextLevel_icon.png" alt="" srcset="" title="Next Level"></div>
+          <a href="index_prev.html"><div class="button" id="home-button"><img src="https://www.freeiconspng.com/uploads/house-icon-png-white-32.png" alt="" srcset="" title="Home"></div></a>
+        </div>
 
          <div class="fail" id="fail">
             <h1 class="message">Time's up!</h1>
@@ -47,11 +53,11 @@
                 Level Failed <br>
                 It's OK! Try again 😊
             </div>
-            <!-- <div class="buttons" id="buttons">
-                <div class="button" id="retry-button"><img src="https://p1.hiclipart.com/preview/611/253/296/hugo-icon-collection-in-the-ecqlipse-2-style-power1-restart-png-icon-thumbnail.jpg" alt="" srcset=""></div>
-                <div class="button" id="home-button"><img src="https://www.freeiconspng.com/uploads/house-icon-png-white-32.png" alt="" srcset=""></div>
-            </div> -->
          </div>
+         <div class="buttons" id="fail-buttons">
+          <div class="button" id="retry-button"><img src="retry_icon.png" alt="" srcset="" title="Retry Level"></div>
+          <div class="button" id="home-button"><img src="https://www.freeiconspng.com/uploads/house-icon-png-white-32.png" alt="" title="Home"></div>
+      </div>
     </div>
 </body>
 </html>
