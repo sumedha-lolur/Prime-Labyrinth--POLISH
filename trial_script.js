@@ -1,55 +1,39 @@
-var level1 = [
-  [1, 0, 1, 0],
-  [1, 1, 1, 1],
-  [1, 0, 1, 0],
-  [1, 0, 1, 1]
-];
-
-var pathLevel1 = [
-  [1, 0, 0, 0],
-  [1, 1, 1, 0],
-  [0, 0, 1, 0],
-  [0, 0, 1, 1],
-];
-const pathMoves1 = 7;
-//To be read from .json file
-// -----------------------------------------------------------------------------------------------------------------------------------
-// var jsonData;
-// fetch('./db.json').then(res=>res.json()).then(data=>{console.log(data);};
 var pathCount = 0;
-var levelStatus=0;
-
+var levelStatus = 0;
+var points,
+  maxPoints = 100;
 let levelsData;
-    let currentLevel = 0;
-    let mazearray, levelPath, levelMoves, timeLimit;
+let currentLevel = 1;
+let mazearray, levelPath, levelMoves, timeLimit;
 
-    async function fetchJSONData() {
-      try {
-        const response = await fetch('./db.json');
-        const jsonData = await response.json();
-        levelsData = jsonData.levelsData;
-        start.parentNode.removeChild(start);
-        loadLevel(currentLevel);
-      } catch (error) {
-        console.log('Error fetching JSON:', error);
-      }
-    }
+let start = document.getElementById("start-button");
+start.addEventListener("click", fetchJSONData);
 
-    function loadLevel(levelId) {
-      const levelData = levelsData.find((level) => level.id === levelId + 1);
-      if (levelData) {
-        mazearray = levelData.maze;
-        levelPath = levelData.path;
-        levelMoves = levelData.moves;
-        timeLimit = levelData.timeLimit;
-        createMaze();
-      } else {
-        console.log('Level not found:', levelId + 1);
-      }
-    }
+async function fetchJSONData() {
+  try {
+    const response = await fetch("./db.json");
+    const jsonData = await response.json();
+    levelsData = jsonData.levelsData;
+    start.parentNode.removeChild(start);
+    loadLevel(currentLevel);
+  } catch (error) {
+    console.log("Error fetching JSON:", error);
+  }
+}
 
-let start=document.getElementById('start-button');
-start.addEventListener('click', fetchJSONData);
+function loadLevel(levelId) {
+  const levelData = levelsData.find((level) => level.id === levelId);
+  if (levelData) {
+    mazearray = levelData.maze;
+    levelPath = levelData.path;
+    levelMoves = levelData.moves;
+    timeLimit = levelData.timeLimit;
+    createMaze();
+  } else {
+    console.log("Level not found:", levelId + 1);
+  }
+}
+
 var maze = document.getElementById("maze-container");
 var rat = document.getElementById("rat");
 var cheese = document.getElementById("cheese");
@@ -65,6 +49,7 @@ const nonPrimeNums = [
 ];
 
 function createMaze() {
+  document.getElementById("container").style.display="flex";
   for (let i = 0; i < mazearray.length; i++) {
     var row = document.createElement("div");
     row.classList.add("row");
@@ -78,8 +63,7 @@ function createMaze() {
         cell.classList.add("wall");
         const randomNonPrime = Math.floor(Math.random() * 74) + 1;
         val.innerText = `${nonPrimeNums[randomNonPrime]}`;
-      } 
-      else {
+      } else {
         cell.classList.add("path");
         if (levelPath[i][j] == 1) {
           cell.classList.add("correct");
@@ -94,42 +78,43 @@ function createMaze() {
   }
   startTimer();
 }
-// function pathHighlighter() {
-  $("#maze-container").on("click", ".wall", function () {
-    $(this).css("backgroundColor", "#FF4343");
-  });
 
-  $("#maze-container").on("click", ".path", function () {
-    $(this).css("backgroundColor", "#F7AF14");
-  });
+$("#maze-container").on("click", ".wall", function () {
+  $(this).css("backgroundColor", "#FF4343");
+});
+
+$("#maze-container").on("click", ".path", function () {
+  $(this).css("backgroundColor", "#F7AF14");
+});
 // }
 
 $("#maze-container").on("click", ".correct", function () {
-  if(++pathCount>=levelMoves){
+  if (++pathCount >= levelMoves) {
     console.log("Congratulations");
-    levelStatus=1;
+    levelStatus = 1;
     congratulations();
   }
 });
 
-var remainingTime=0, countdownInterval;
+var remainingTime = 0,
+  countdownInterval;
 function startTimer() {
   remainingTime = timeLimit;
-  const timerElement = document.getElementById('timer');
+  const timerElement = document.getElementById("timer");
   timerElement.textContent = `Time Remaining: ${remainingTime}s`;
-  countdownInterval = setInterval(updateTimer, 1000);
+  countdownInterval = setInterval(updateTimer, 1000);
 }
 
 function updateTimer() {
   remainingTime--;
-  const timerElement = document.getElementById('timer');
+  const timerElement = document.getElementById("timer");
   timerElement.textContent = `Time Remaining: ${remainingTime}s`;
 
   if (remainingTime <= 0) {
     clearInterval(countdownInterval);
     handleTimeout();
-  }
-  if(levelStatus==1){
+  }
+  if (levelStatus == 1) {
     clearInterval(countdownInterval);
   }
 }
@@ -143,13 +128,22 @@ function handleTimeout() {
 //   startTimer();
 // }
 
-function congratulations(){
-  document.getElementById("congratulations").style.display="flex";
-  document.getElementById("container").style.display="none";
+function congratulations() {
+  document.getElementById("congratulations").style.display = "flex";
+  document.getElementById("container").style.display = "none";
+  document.getElementById("pass-buttons").style.display = "flex";
+  if (remainingTime >= (timeLimit * 2) / 3) points = maxPoints;
+  else if (remainingTime >= timeLimit / 3) points = maxPoints / 2;
+  else points = maxPoints / 4;
+  document.getElementById("points").innerText = `Level Completed! 
+  Points: ${points}`;
 }
 
-function tryAgain(){
-  document.getElementById("fail").style.display="flex";
-  document.getElementById("container").style.display="none";
+function tryAgain() {
+  document.getElementById("fail").style.display = "flex";
+  document
+    .getElementById("main-container")
+    .style.display="flex";
+  document.getElementById("fail-buttons").style.display = "flex";
   // restartLevel();
 }
