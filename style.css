@@ -8,11 +8,13 @@ body{
     flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
-    align-content: center;
+    align-items: center;
     width: 100vw;
     height: 100vh;
     background: url('Untitled_design.png');
     background-size: cover;
+    background-repeat: no-repeat;
+    gap: 50px;
 }
 
 #heading{
@@ -21,9 +23,34 @@ body{
     color: gold;
     margin-bottom: 20px;
     text-align: center;
-    /* position: fixed; */
     top: 10%;
-    /* left:41%; */
+}
+
+
+.levels-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.levels-container a {
+    text-decoration: none;
+}
+
+.levels-container .level-tile {
+    background-color: goldenrod;
+    color: white;
+    padding: 15px 25px;
+    font-size: 25px;
+    border-radius: 4px;
+    border: 2px solid rgb(143, 103, 3);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.levels-container .level-tile:hover {
+    background-color: #a17900; /* Add a slightly different color on hover */
+    transform: scale(1.05); /* Add a subtle scale effect on hover */
+    cursor: pointer;
 }
 
 .start-button{
@@ -51,7 +78,7 @@ body{
     flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
-    align-content: center;
+    align-items: center;
     width: 800px;
     height: 800px;
     gap: 50px;
@@ -63,7 +90,7 @@ body{
     height: max-content;
     width: max-content;
     /*position: relative;*/
-    display: flex;
+    display: none;
     padding: 100px;
     justify-content: center;
     align-items: center;
@@ -102,9 +129,6 @@ body{
     background-color: white;
     color: black;
 }
-/* .wall:active{
-    background-color: red;
-} */
 
 .val{
     display: flex;
@@ -112,6 +136,9 @@ body{
     align-content: center;
 }
 
+.time-container{
+    margin-top: 5%;
+}
 .timer{
     font-size: 25px;
     text-align: center;
@@ -128,7 +155,14 @@ body{
   width: 50px; /* Adjust the width as needed */
   height: 50px; /* Adjust the height as needed */
 }
-
+.rat-container{
+    top: 0;
+    left: -50px;
+}
+.cheese-container{
+    bottom: 0;
+    right: -50px;
+}
 .rat-container img,
 .cheese-container img {
   width: 100%;
@@ -136,18 +170,11 @@ body{
   object-fit: cover;
 }
 
-/* Adjust the positions of rat and cheese images */
-.rat-container {
-  top: 0;
-  left: 0;
-}
-
-.cheese-container {
+.cheese-container img{
+    position: absolute;
   bottom: 0;
-  right: 0;
+  margin-right: -50;
 }
-
-
 
 #congratulations{
     display: none;
@@ -173,6 +200,7 @@ hr{
     background-color: white;
     height: 5px;
     border-radius: 50%;
+    width: 80%;
 }
 
 #fail{
@@ -200,3 +228,26 @@ hr{
     height: auto;
 }
 
+.button{
+    background-color: goldenrod;
+    border-radius: 6px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+.button :hover{
+    cursor: pointer;
+}
+.button img{
+    width: 50px;
+    height: 50px; 
+}
+
+#fail-buttons, #pass-buttons{
+    display: none;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 10%;
+}
